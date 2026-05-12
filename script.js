@@ -1,22 +1,16 @@
-// Habit Tracker Application
-class HabitTracker {
+// Multi-Habit Tracker Application
+class MultiHabitTracker {
     constructor() {
-        this.habitInput = document.getElementById('habitInput');
-        this.logBtn = document.getElementById('logBtn');
-        this.resetBtn = document.getElementById('resetBtn');
+        this.newHabitInput = document.getElementById('newHabitInput');
+        this.addHabitBtn = document.getElementById('addHabitBtn');
         this.clearBtn = document.getElementById('clearBtn');
-        this.charCount = document.getElementById('charCount');
-        
-        // Streak display elements
-        this.streakCount = document.getElementById('streakCount');
-        this.lastHabit = document.getElementById('lastHabit');
-        this.lastDate = document.getElementById('lastDate');
-        this.daysInRow = document.getElementById('daysInRow');
-        this.totalDays = document.getElementById('totalDays');
-        this.progressFill = document.getElementById('progressFill');
+        this.habitsGrid = document.getElementById('habitsGrid');
+        this.newCharCount = document.getElementById('newCharCount');
+        this.activeHabitsCount = document.getElementById('activeHabitsCount');
+        this.loggedTodayCount = document.getElementById('loggedTodayCount');
         
         // Local storage key
-        this.storageKey = 'habitTrackerData';
+        this.storageKey = 'multiHabitTrackerData';
         
         // Motivational quotes
         this.quotes = [
@@ -41,14 +35,13 @@ class HabitTracker {
     }
     
     setupEventListeners() {
-        this.logBtn.addEventListener('click', () => this.logHabit());
-        this.resetBtn.addEventListener('click', () => this.resetStreak());
+        this.addHabitBtn.addEventListener('click', () => this.addNewHabit());
         this.clearBtn.addEventListener('click', () => this.clearAllData());
-        this.habitInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') this.logHabit();
+        this.newHabitInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') this.addNewHabit();
         });
-        this.habitInput.addEventListener('input', () => {
-            this.charCount.textContent = this.habitInput.value.length;
+        this.newHabitInput.addEventListener('input', () => {
+            this.newCharCount.textContent = this.newHabitInput.value.length;
         });
     }
     
@@ -58,10 +51,7 @@ class HabitTracker {
             this.data = JSON.parse(saved);
         } else {
             this.data = {
-                habits: [],
-                lastLogDate: null,
-                streak: 0,
-                totalDays: 0
+                habits: []
             };
         }
     }
@@ -70,116 +60,241 @@ class HabitTracker {
         localStorage.setItem(this.storageKey, JSON.stringify(this.data));
     }
     
-    logHabit() {
-        const habitText = this.habitInput.value.trim();
+    addNewHabit() {
+        const habitName = this.newHabitInput.value.trim();
         
-        if (!habitText) {
-            this.showToast('Please enter a habit! 🤔');
+        if (!habitName) {
+            this.showToast('Please enter a habit name! 🤔');
             return;
         }
         
+        // Check if habit already exists
+        if (this.data.habits.some(h => h.name.toLowerCase() === habitName.toLowerCase())) {
+            this.showToast('This habit already exists! 📝');
+            return;
+        }
+        
+        const newHabit = {
+            id: Date.now(),
+            name: habitName,
+            streak: 0,
+            lastLogDate: null,
+            totalDays: 0,
+            loggedToday: false,
+            createdDate: this.getDateString(new Date())
+        };
+        
+        this.data.habits.push(newHabit);
+        this.saveData();
+        this.updateUI();
+        this.newHabitInput.value = '';
+        this.newCharCount.textContent = '0';
+        
+        this.showToast(`🎉 "${habitName}" added! Start logging!`);
+    }
+    
+    deleteHabit(habitId) {
+        const habit = this.data.habits.find(h => h.id === habitId);
+        if (!habit) return;
+        
+        const confirmed = confirm(`Delete "${habit.name}" and all its data? This cannot be undone.`);
+        if (confirmed) {
+            this.data.habits = this.data.habits.filter(h => h.id !== habitId);
+            this.saveData();
+            this.updateUI();
+            this.showToast(`"${habit.name}" deleted 🗑️`);
+        }
+    }
+    
+    editHabitName(habitId) {
+        const habit = this.data.habits.find(h => h.id === habitId);
+        if (!habit) return;
+        
+        const newName = prompt(`Edit habit name:\n\n(Current: "${habit.name}")`, habit.name);
+        
+        if (newName === null) return; // User cancelled
+        
+        const trimmed = newName.trim();
+        if (!trimmed) {
+            this.showToast('Habit name cannot be empty! 📝');
+            return;
+        }
+        
+        // Check if name already exists
+        if (this.data.habits.some(h => h.id !== habitId && h.name.toLowerCase() === trimmed.toLowerCase())) {
+            this.showToast('This habit name already exists! 📝');
+            return;
+        }
+        
+        const oldName = habit.name;
+        habit.name = trimmed;
+        this.saveData();
+        this.updateUI();
+        this.showToast(`✏️ "${oldName}" renamed to "${trimmed}"`);
+    }
+    
+    logHabit(habitId) {
+        const habit = this.data.habits.find(h => h.id === habitId);
+        if (!habit) return;
+        
         const today = this.getDateString(new Date());
         
-        // Check if habit already logged today
-        if (this.data.lastLogDate === today) {
-            this.showToast('You\'ve already logged today! 💪');
+        // Check if already logged today
+        if (habit.loggedToday) {
+            this.showToast(`Already logged "${habit.name}" today! 💪`);
             return;
         }
         
         // Check if yesterday was logged (for streak continuity)
         const yesterday = this.getDateString(new Date(Date.now() - 86400000));
         
-        if (this.data.lastLogDate === null) {
-            // First habit
-            this.data.streak = 1;
-        } else if (this.data.lastLogDate === yesterday) {
+        if (habit.lastLogDate === null) {
+            // First log
+            habit.streak = 1;
+        } else if (habit.lastLogDate === yesterday) {
             // Streak continues
-            this.data.streak++;
+            habit.streak++;
         } else {
             // Streak broken, restart
-            this.data.streak = 1;
+            habit.streak = 1;
         }
         
-        // Add habit to log
-        this.data.habits.push({
-            habit: habitText,
-            date: today,
-            timestamp: Date.now()
-        });
-        
-        this.data.lastLogDate = today;
-        this.data.totalDays = this.data.habits.length;
+        habit.lastLogDate = today;
+        habit.totalDays++;
+        habit.loggedToday = true;
         
         this.saveData();
         this.updateUI();
-        this.habitInput.value = '';
-        this.charCount.textContent = '0';
         
-        this.showToast(`🎉 Awesome! Your streak is ${this.data.streak} days!`);
+        this.showToast(`🔥 "${habit.name}" logged! Streak: ${habit.streak} days!`);
     }
     
-    resetStreak() {
-        if (this.data.streak === 0) {
+    resetStreakForHabit(habitId) {
+        const habit = this.data.habits.find(h => h.id === habitId);
+        if (!habit) return;
+        
+        if (habit.streak === 0) {
             this.showToast('No streak to reset! 📝');
             return;
         }
         
-        const confirmed = confirm(`⚠️ Reset your ${this.data.streak}-day streak? This cannot be undone.`);
+        const confirmed = confirm(`Reset "${habit.name}" streak from ${habit.streak} days? This cannot be undone.`);
         if (confirmed) {
-            this.data.streak = 0;
-            this.data.lastLogDate = null;
+            habit.streak = 0;
+            habit.lastLogDate = null;
             this.saveData();
             this.updateUI();
-            this.showToast('Streak reset. Ready to start fresh? 🚀');
+            this.showToast(`Streak reset for "${habit.name}". Ready to start fresh? 🚀`);
         }
     }
     
     clearAllData() {
-        const confirmed = confirm('🗑️ Delete all habit data? This cannot be undone.');
+        const confirmed = confirm('🗑️ Delete ALL habits and data? This cannot be undone.');
         if (confirmed) {
             localStorage.removeItem(this.storageKey);
-            this.data = {
-                habits: [],
-                lastLogDate: null,
-                streak: 0,
-                totalDays: 0
-            };
+            this.data = { habits: [] };
             this.updateUI();
             this.showToast('All data cleared! Starting fresh 🌱');
         }
     }
     
     updateUI() {
-        // Update streak
-        this.streakCount.textContent = this.data.streak;
-        this.daysInRow.textContent = this.data.streak;
-        this.totalDays.textContent = this.data.totalDays;
+        this.updateStats();
+        this.renderHabits();
+        this.resetDailyCheckmarks();
+    }
+    
+    updateStats() {
+        const activeCount = this.data.habits.length;
+        const loggedTodayCount = this.data.habits.filter(h => h.loggedToday).length;
         
-        // Update last logged
-        if (this.data.lastLogDate) {
-            const lastHabitObj = this.data.habits[this.data.habits.length - 1];
-            this.lastHabit.textContent = lastHabitObj.habit;
-            this.lastDate.textContent = this.formatDate(this.data.lastLogDate);
-        } else {
-            this.lastHabit.textContent = 'No habit logged yet';
-            this.lastDate.textContent = '—';
+        this.activeHabitsCount.textContent = activeCount;
+        this.loggedTodayCount.textContent = loggedTodayCount;
+    }
+    
+    resetDailyCheckmarks() {
+        // Reset daily checkmarks at midnight
+        const today = this.getDateString(new Date());
+        
+        this.data.habits.forEach(habit => {
+            if (habit.lastLogDate !== today) {
+                habit.loggedToday = false;
+            }
+        });
+        
+        this.saveData();
+    }
+    
+    renderHabits() {
+        if (this.data.habits.length === 0) {
+            this.habitsGrid.innerHTML = '<div class="empty-state"><p>No habits yet. Create your first one above! 🌱</p></div>';
+            return;
         }
         
-        // Update progress bar (max 365 days)
-        const progress = Math.min((this.data.totalDays / 30) * 100, 100);
-        this.progressFill.style.width = progress + '%';
+        this.habitsGrid.innerHTML = this.data.habits.map(habit => this.createHabitCard(habit)).join('');
         
-        // Add animation class
-        this.progressFill.style.transition = 'width 0.5s ease-out';
+        // Attach event listeners to habit card buttons
+        this.data.habits.forEach(habit => {
+            const logBtn = document.querySelector(`[data-habit-log="${habit.id}"]`);
+            const editBtn = document.querySelector(`[data-habit-edit="${habit.id}"]`);
+            const deleteBtn = document.querySelector(`[data-habit-delete="${habit.id}"]`);
+            const resetBtn = document.querySelector(`[data-habit-reset="${habit.id}"]`);
+            
+            if (logBtn) logBtn.addEventListener('click', () => this.logHabit(habit.id));
+            if (editBtn) editBtn.addEventListener('click', () => this.editHabitName(habit.id));
+            if (deleteBtn) deleteBtn.addEventListener('click', () => this.deleteHabit(habit.id));
+            if (resetBtn) resetBtn.addEventListener('click', () => this.resetStreakForHabit(habit.id));
+        });
+    }
+    
+    createHabitCard(habit) {
+        const loggedClass = habit.loggedToday ? 'logged' : '';
+        const logBtnDisabled = habit.loggedToday ? 'disabled' : '';
+        const logBtnText = habit.loggedToday ? '✓ Logged Today' : '✓ Log Today';
+        const lastDateText = habit.lastLogDate ? `Last logged: ${this.formatDate(habit.lastLogDate)}` : 'Never logged';
         
-        // Update streak card animation based on streak
-        const streakCard = document.querySelector('.streak-card');
-        if (this.data.streak > 0 && this.data.streak % 10 === 0) {
-            streakCard.style.animation = 'none';
-            setTimeout(() => {
-                streakCard.style.animation = 'pulse 0.5s ease-out';
-            }, 10);
-        }
+        return `
+            <div class="habit-card ${loggedClass}">
+                <div class="habit-header">
+                    <h3 class="habit-name">${this.escapeHtml(habit.name)}</h3>
+                    <div class="habit-actions">
+                        <button class="habit-edit-btn" data-habit-edit="${habit.id}" title="Edit">✏️</button>
+                        <button class="habit-delete-btn" data-habit-delete="${habit.id}" title="Delete">🗑️</button>
+                    </div>
+                </div>
+                
+                <div class="habit-content">
+                    <div class="habit-stat">
+                        <span class="habit-stat-label">🔥 Current Streak</span>
+                        <span class="habit-stat-value streak">${habit.streak}</span>
+                        <span class="habit-stat-label">days</span>
+                    </div>
+                    <div class="habit-stat">
+                        <span class="habit-stat-label">📊 Total Logged</span>
+                        <span class="habit-stat-value total">${habit.totalDays}</span>
+                        <span class="habit-stat-label">times</span>
+                    </div>
+                </div>
+                
+                <div class="habit-footer">
+                    <button class="habit-log-btn" data-habit-log="${habit.id}" ${logBtnDisabled}>${logBtnText}</button>
+                    ${habit.streak > 0 ? `<button class="habit-edit-btn" data-habit-reset="${habit.id}" style="padding: 12px 16px; flex: 0;" title="Reset Streak">🔄</button>` : ''}
+                </div>
+                
+                <div class="habit-last-date">${lastDateText}</div>
+            </div>
+        `;
+    }
+    
+    escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
     }
     
     getDateString(date) {
@@ -191,7 +306,7 @@ class HabitTracker {
     
     formatDate(dateString) {
         const date = new Date(dateString + 'T00:00:00');
-        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
         return date.toLocaleDateString('en-US', options);
     }
     
@@ -215,5 +330,5 @@ class HabitTracker {
 
 // Initialize the app when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    new HabitTracker();
+    new MultiHabitTracker();
 });

@@ -134,7 +134,7 @@ body {
 }
 
 /* Habit Section */
-.habit-section {
+.new-habit-section {
     background: var(--card-bg);
     border-radius: 20px;
     padding: 30px;
@@ -142,16 +142,268 @@ body {
     animation: fadeInUp 0.8s ease-out 0.1s backwards;
 }
 
-.habit-section h2 {
+.new-habit-section h2 {
     font-size: 1.3rem;
     margin-bottom: 20px;
     font-weight: 600;
 }
 
-.input-wrapper {
-    display: flex;
-    gap: 12px;
+.add-button {
+    background: linear-gradient(135deg, var(--primary-color), #ff8787);
+    border: none;
+    border-radius: 12px;
+    padding: 14px 28px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+    font-family: inherit;
+}
+
+.add-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 107, 107, 0.4);
+}
+
+.add-button:active {
+    transform: translateY(0);
+}
+
+/* Overview Section */
+.overview-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease-out 0.15s backwards;
+}
+
+.overview-stat {
+    background: linear-gradient(135deg, rgba(78, 205, 196, 0.2), rgba(255, 107, 107, 0.2));
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.overview-stat .stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     margin-bottom: 10px;
+}
+
+.overview-stat .stat-value {
+    display: block;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--secondary-color);
+}
+
+/* Habits Section */
+.habits-section {
+    margin-bottom: 30px;
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+}
+
+.habits-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.habits-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+/* Individual Habit Card */
+.habit-card {
+    background: var(--card-bg);
+    border-radius: 18px;
+    padding: 25px;
+    border-left: 5px solid transparent;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+.habit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.habit-card.logged {
+    border-left-color: var(--success-color);
+    background: linear-gradient(135deg, var(--card-bg) 0%, rgba(38, 222, 129, 0.1) 100%);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.habit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.habit-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--text-light);
+    flex: 1;
+}
+
+.habit-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.habit-edit-btn,
+.habit-delete-btn {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.habit-edit-btn {
+    background: rgba(78, 205, 196, 0.2);
+    color: var(--secondary-color);
+    border: 1px solid rgba(78, 205, 196, 0.4);
+}
+
+.habit-edit-btn:hover {
+    background: rgba(78, 205, 196, 0.3);
+    transform: scale(1.05);
+}
+
+.habit-delete-btn {
+    background: rgba(255, 107, 107, 0.2);
+    color: var(--primary-color);
+    border: 1px solid rgba(255, 107, 107, 0.4);
+}
+
+.habit-delete-btn:hover {
+    background: rgba(255, 107, 107, 0.3);
+    transform: scale(1.05);
+}
+
+.habit-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.habit-stat {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.habit-stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.habit-stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.habit-stat-value.streak {
+    color: var(--primary-color);
+}
+
+.habit-stat-value.total {
+    color: var(--secondary-color);
+}
+
+.habit-footer {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.habit-log-btn {
+    flex: 1;
+    background: linear-gradient(135deg, var(--secondary-color), #45b7b0);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+    font-family: inherit;
+    font-size: 0.95rem;
+}
+
+.habit-log-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(78, 205, 196, 0.4);
+}
+
+.habit-log-btn:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.logged-today {
+    background: rgba(38, 222, 129, 0.2);
+    color: var(--success-color);
+    border: 1px solid var(--success-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.habit-last-date {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .habit-input {
@@ -443,30 +695,12 @@ body {
         font-size: 2rem;
     }
 
-    .streak-card {
-        padding: 30px 20px;
+    .overview-section {
+        grid-template-columns: 1fr;
     }
 
-    .flame-icon {
-        font-size: 3rem;
-    }
-
-    .streak-count {
-        font-size: 2.5rem;
-    }
-
-    .habit-section,
-    .last-logged-section,
-    .progress-section {
-        padding: 20px;
-    }
-
-    .input-wrapper {
-        flex-direction: column;
-    }
-
-    .log-button {
-        width: 100%;
+    .habit-content {
+        grid-template-columns: 1fr;
     }
 
     .quote {
@@ -475,5 +709,13 @@ body {
 
     .action-buttons {
         grid-template-columns: 1fr;
+    }
+
+    .habit-footer {
+        flex-direction: column;
+    }
+
+    .habit-log-btn {
+        width: 100%;
     }
 }

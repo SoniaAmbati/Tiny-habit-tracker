@@ -18,71 +18,52 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Streak Card -->
-            <div class="streak-card">
-                <div class="streak-inner">
-                    <div class="flame-icon">🔥</div>
-                    <div class="streak-info">
-                        <p class="streak-label">Current Streak</p>
-                        <p class="streak-count" id="streakCount">0</p>
-                        <p class="streak-days">days</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Habit Input Section -->
-            <section class="habit-section">
-                <h2>Log Your Habit Today</h2>
+            <!-- Create New Habit Section -->
+            <section class="new-habit-section">
+                <h2>Add New Habit</h2>
                 <div class="input-wrapper">
                     <input 
                         type="text" 
-                        id="habitInput" 
+                        id="newHabitInput" 
                         class="habit-input" 
-                        placeholder="What habit did you complete today?" 
-                        maxlength="50"
+                        placeholder="Enter habit name (e.g., Exercise, Read, Meditate)" 
+                        maxlength="30"
                     >
-                    <button id="logBtn" class="log-button">✓ Log Habit</button>
+                    <button id="addHabitBtn" class="add-button">+ Add Habit</button>
                 </div>
-                <p class="character-count"><span id="charCount">0</span>/50</p>
+                <p class="character-count"><span id="newCharCount">0</span>/30</p>
             </section>
 
-            <!-- Last Logged Section -->
-            <section class="last-logged-section">
-                <h3>Last Logged</h3>
-                <div class="last-logged-card">
-                    <p class="last-habit" id="lastHabit">No habit logged yet</p>
-                    <p class="last-date" id="lastDate">—</p>
+            <!-- Overview Stats -->
+            <section class="overview-section">
+                <div class="overview-stat">
+                    <span class="stat-label">Active Habits</span>
+                    <span class="stat-value" id="activeHabitsCount">0</span>
+                </div>
+                <div class="overview-stat">
+                    <span class="stat-label">Total Logged Today</span>
+                    <span class="stat-value" id="loggedTodayCount">0</span>
                 </div>
             </section>
 
-            <!-- Streak Progress -->
-            <section class="progress-section">
-                <h3>Streak Progress</h3>
-                <div class="progress-info">
-                    <div class="progress-stat">
-                        <span class="stat-label">Days in a Row</span>
-                        <span class="stat-value" id="daysInRow">0</span>
-                    </div>
-                    <div class="progress-stat">
-                        <span class="stat-label">Total Days</span>
-                        <span class="stat-value" id="totalDays">0</span>
+            <!-- Habits Grid -->
+            <section class="habits-section">
+                <h2>Your Habits</h2>
+                <div class="habits-grid" id="habitsGrid">
+                    <div class="empty-state">
+                        <p>No habits yet. Create your first one above! 🌱</p>
                     </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill"></div>
-                </div>
-                <p class="progress-text">Keep it up! 🌟</p>
-            </section>
-
-            <!-- Action Buttons -->
-            <section class="action-buttons">
-                <button id="resetBtn" class="reset-button">🔄 Reset Streak</button>
-                <button id="clearBtn" class="clear-button">🗑️ Clear All Data</button>
             </section>
 
             <!-- Motivational Quote -->
             <section class="quote-section">
                 <p id="quote" class="quote">Success is the sum of small efforts repeated day in and day out.</p>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="action-buttons">
+                <button id="clearBtn" class="clear-button">🗑️ Clear All Data</button>
             </section>
         </main>
 
