@@ -1,49 +1,62 @@
-# 🎯 Tiny Habit Tracker
+# 🎯 Tiny Multi-Habit Tracker
 
-A beautiful, simple habit streak tracker to help you build consistency with one daily habit.
+A beautiful, modern habit streak tracker that lets you track multiple daily habits and watch your streaks grow independently.
 
 ## Features
 
-✨ **Simple & Elegant** - Log one habit per day and watch your streak grow  
-🔥 **Streak Counter** - Visual streak counter with animated flame icon  
-📊 **Progress Tracking** - See your total days and days in a row  
-💾 **Local Storage** - Your data persists automatically in your browser    
+✨ **Multiple Habits** - Track as many habits as you want, each with its own streak  
+🔥 **Streak Counter** - Visual streak display for each habit  
+📊 **Progress Tracking** - See total logged days and independent streaks  
 📱 **Responsive** - Works perfectly on mobile, tablet, and desktop  
+✏️ **Edit & Delete** - Rename habits or remove ones you no longer want  
 🏅 **Motivational Quotes** - Random quotes to keep you inspired  
+🔔 **Toast Notifications** - Get feedback on every action  
 
 ## How to Use
 
-1. Open `index.html` in your web browser
-2. Type the habit you completed today
-3. Click "✓ Log Habit" or press Enter
-4. Watch your streak grow day by day!
+1. **Open** the app by loading `index.html` in your web browser
+2. **Create a Habit** - Enter a habit name (e.g., "Exercise", "Read", "Meditate") and click "Add Habit"
+3. **Log Daily** - Click "✓ Log Today" for each habit you complete
+4. **Watch It Grow** - Your streak increases each day you log the habit
+5. **Manage** - Edit habit names or delete habits you're done with
 
 ## Features in Detail
 
+### Create Multiple Habits
+- Add unlimited habits with custom names
+- Each habit tracked completely independently
+- Real-time character counter (30 char limit)
+
 ### Daily Logging
-- Input your habit with a max of 50 characters
-- Real-time character counter
-- Prevention of duplicate logging on the same day
+- One-click logging for each habit
+- Cannot log the same habit twice in one day
+- Shows "✓ Logged Today" when completed
+- Prevents streaks from breaking on missed days
 
 ### Streak Tracking
-- Current streak counter with animated flame icon 🔥
+- 🔥 Individual streak counter for each habit
 - Days in a row counter
-- Total days logged
-- Visual progress bar (scales up to 30 days)
+- Total logged days for each habit
+- Streak resets if you miss a day
 
-### Habit History
-- Last logged habit and date display
-- All habits stored in browser's local storage
-- Reset streak to start fresh
-- Clear all data option
+### Habit Management
+- **Edit** - Click ✏️ to rename any habit
+- **Delete** - Click 🗑️ to remove a habit and its data
+- **Reset** - Click 🔄 button on streak to reset without deleting
+- Confirmation prompts prevent accidental deletion
+
+### Overview Stats
+- **Active Habits** - Total number of habits you're tracking
+- **Logged Today** - How many habits you've completed so far
 
 ## Data Storage
 
 All your data is stored locally in your browser using localStorage. It won't be shared or sent anywhere.
 
-### Reset Your Data
-- **Reset Streak**: Clears just your streak counter, keeps habit history
-- **Clear All Data**: Removes everything - use with caution!
+### Data & Privacy
+- **Your Data** - Stored only on your device, nowhere else
+- **Clear All** - Delete everything at once with the button at the bottom
+- **Automatic Reset** - Daily checkmarks reset at midnight
 
 ## No Dependencies
 
@@ -53,5 +66,4 @@ Built with vanilla HTML, CSS, and JavaScript. No frameworks, no npm packages req
 
 Made with ❤️ for habit builders. 
 
-
-Remember : consistency beats perfection! 🚀
+Remember: small consistent actions lead to big results! 🚀
