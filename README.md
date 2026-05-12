@@ -7,8 +7,7 @@ A beautiful, simple habit streak tracker to help you build consistency with one 
 ✨ **Simple & Elegant** - Log one habit per day and watch your streak grow  
 🔥 **Streak Counter** - Visual streak counter with animated flame icon  
 📊 **Progress Tracking** - See your total days and days in a row  
-💾 **Local Storage** - Your data persists automatically in your browser  
-🎨 **Beautiful UI** - Modern gradient design with smooth animations  
+💾 **Local Storage** - Your data persists automatically in your browser    
 📱 **Responsive** - Works perfectly on mobile, tablet, and desktop  
 🏅 **Motivational Quotes** - Random quotes to keep you inspired  
 
@@ -38,13 +37,6 @@ A beautiful, simple habit streak tracker to help you build consistency with one 
 - Reset streak to start fresh
 - Clear all data option
 
-### Design Highlights
-- Dark modern gradient background
-- Smooth animations and transitions
-- Color-coded sections with icons
-- Toast notifications for user feedback
-- Mobile-responsive layout
-
 ## Data Storage
 
 All your data is stored locally in your browser using localStorage. It won't be shared or sent anywhere.
@@ -62,4 +54,4 @@ Built with vanilla HTML, CSS, and JavaScript. No frameworks, no npm packages req
 Made with ❤️ for habit builders. 
 
 
-Remember: consistency beats perfection! 🚀
+Remember : consistency beats perfection! 🚀
