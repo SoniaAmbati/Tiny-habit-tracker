@@ -58,9 +58,11 @@ All your data is stored locally in your browser using localStorage. It won't be 
 - **Clear All** - Delete everything at once with the button at the bottom
 - **Automatic Reset** - Daily checkmarks reset at midnight
 
-## No Dependencies
+## Tech Stack
 
-Built with vanilla HTML, CSS, and JavaScript. No frameworks, no npm packages required. Just open and go!
+1. vanilla HTML
+2. CSS
+3. JavaScript
 
 ---
 
