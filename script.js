@@ -9,7 +9,10 @@ class MultiHabitTracker {
         this.activeHabitsCount = document.getElementById('activeHabitsCount');
         this.loggedTodayCount = document.getElementById('loggedTodayCount');
         this.bestStreakCount = document.getElementById('bestStreakCount');
-        
+        this.themeToggle = document.getElementById('themeToggle');
+        this.themeKey = 'mhtTheme';
+        this.currentTheme = 'dark';
+
         // Local storage key
         this.storageKey = 'multiHabitTrackerData';
 
@@ -41,6 +44,7 @@ class MultiHabitTracker {
     setupEventListeners() {
         this.addHabitBtn.addEventListener('click', () => this.addNewHabit());
         this.clearBtn.addEventListener('click', () => this.clearAllData());
+        if (this.themeToggle) this.themeToggle.addEventListener('click', () => this.toggleTheme());
         this.newHabitInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') this.addNewHabit();
         });
