@@ -170,7 +170,9 @@ class MultiHabitTracker {
         this.saveData();
         this.updateUI();
         
+        // celebration
         this.showToast(`🔥 "${habit.name}" logged! Streak: ${habit.streak} days!`);
+        try { this.launchConfetti(); } catch (e) { /* ignore if confetti fails */ }
     }
     
     resetStreakForHabit(habitId) {
@@ -341,6 +343,74 @@ class MultiHabitTracker {
             toast.style.animation = 'slideUp 0.4s ease-out reverse';
             setTimeout(() => toast.remove(), 400);
         }, 3000);
+    }
+
+    // Lightweight confetti (no external libs)
+    launchConfetti() {
+        const duration = 1400;
+        const end = Date.now() + duration;
+        const colors = ['#ff6b6b','#4ecdc4','#ffe66d','#26de81','#ffffff'];
+
+        const canvas = document.createElement('canvas');
+        canvas.className = 'confetti-canvas';
+        canvas.style.position = 'fixed';
+        canvas.style.left = '0';
+        canvas.style.top = '0';
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = 9999;
+        document.body.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        const particles = [];
+        const particleCount = 100;
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * -canvas.height * 0.2,
+                vx: (Math.random() - 0.5) * 6,
+                vy: Math.random() * 4 + 2,
+                size: Math.random() * 8 + 6,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                rotation: Math.random() * 2 * Math.PI,
+                vr: (Math.random() - 0.5) * 0.2
+            });
+        }
+
+        const gravity = 0.06;
+
+        (function frame() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += gravity;
+                p.rotation += p.vr;
+
+                ctx.save();
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.rotation);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.size/2, -p.size/2, p.size, p.size * 0.6);
+                ctx.restore();
+            });
+
+            if (Date.now() < end) {
+                requestAnimationFrame(frame);
+            } else {
+                // cleanup
+                window.removeEventListener('resize', resize);
+                canvas.remove();
+            }
+        })();
     }
     
     displayRandomQuote() {
