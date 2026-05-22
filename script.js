@@ -8,9 +8,13 @@ class MultiHabitTracker {
         this.newCharCount = document.getElementById('newCharCount');
         this.activeHabitsCount = document.getElementById('activeHabitsCount');
         this.loggedTodayCount = document.getElementById('loggedTodayCount');
+        this.bestStreakCount = document.getElementById('bestStreakCount');
         
         // Local storage key
         this.storageKey = 'multiHabitTrackerData';
+
+        // track displayed best streak for pop animation
+        this.lastBestStreak = 0;
         
         // Motivational quotes
         this.quotes = [
@@ -210,6 +214,23 @@ class MultiHabitTracker {
         
         this.activeHabitsCount.textContent = activeCount;
         this.loggedTodayCount.textContent = loggedTodayCount;
+        this.updateStreakCard();
+    }
+
+    updateStreakCard() {
+        if (!this.bestStreakCount) return;
+
+        const best = this.data.habits.reduce((max, h) => Math.max(max, h.streak || 0), 0);
+        // Update UI
+        const prev = Number(this.bestStreakCount.textContent) || 0;
+        this.bestStreakCount.textContent = best;
+
+        // Simple pop animation when value increases
+        if (best !== this.lastBestStreak) {
+            this.bestStreakCount.classList.add('pop');
+            setTimeout(() => this.bestStreakCount.classList.remove('pop'), 500);
+            this.lastBestStreak = best;
+        }
     }
     
     resetDailyCheckmarks() {

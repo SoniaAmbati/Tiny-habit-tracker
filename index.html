@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tiny Habit Tracker</title>
+    <meta name="theme-color" content="#16213e">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -15,6 +19,18 @@
                 <p class="subtitle">Build consistency, one day at a time</p>
             </div>
         </header>
+
+        <!-- Decorative Streak Card (dynamic) -->
+        <section class="streak-card" aria-label="Best streak summary">
+            <div class="streak-inner">
+                <div class="flame-icon">🔥</div>
+                <div class="streak-info">
+                    <div class="streak-label">Best Streak</div>
+                    <div class="streak-count" id="bestStreakCount">0</div>
+                    <div class="streak-days">days in a row</div>
+                </div>
+            </div>
+        </section>
 
         <!-- Main Content -->
         <main class="main-content">
