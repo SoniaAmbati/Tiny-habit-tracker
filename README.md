@@ -51,7 +51,7 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 
 ## Data Storage
 
-All your data is stored locally in your browser using localStorage. It won't be shared or sent anywhere.
+All your data is stored locally in your browser using localStorage. 
 
 ### Data & Privacy
 - **Your Data** - Stored only on your device, nowhere else
@@ -68,4 +68,6 @@ All your data is stored locally in your browser using localStorage. It won't be 
 
 Made with ❤️ for habit builders. 
 
+```
 Remember: small consistent actions lead to big results! 🚀
+```
