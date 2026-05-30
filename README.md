@@ -43,7 +43,7 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 - **Edit** - Click ✏️ to rename any habit
 - **Delete** - Click 🗑️ to remove a habit and its data
 - **Reset** - Click 🔄 button on streak to reset without deleting
-- Confirmation prompts prevent accidental deletion
+- Confirmation prompts prevents accidental deletion of data
 
 ### Overview Stats
 - **Active Habits** - Total number of habits you're tracking
