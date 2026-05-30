@@ -5,7 +5,7 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 ## Features
 
 ✨ **Multiple Habits** - Track as many habits as you want, each with its own streak  
-🔥 **Streak Counter** - Visual streak display for each habit  
+🔥 **Streak Counter** - Visual streak display for each habit added
 📊 **Progress Tracking** - See total logged days and independent streaks  
 📱 **Responsive** - Works perfectly on mobile, tablet, and desktop  
 ✏️ **Edit & Delete** - Rename habits or remove ones you no longer want  
