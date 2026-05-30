@@ -25,7 +25,7 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 ### Create Multiple Habits
 - Add unlimited habits with custom names
 - Each habit tracked completely independently
-- Real-time character counter (30 char limit)
+- Real-time character counter (30 character limit)
 
 ### Daily Logging
 - One-click logging for each habit
