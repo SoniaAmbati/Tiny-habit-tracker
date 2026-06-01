@@ -60,7 +60,7 @@ All your data is stored locally in your browser using localStorage.
 
 ## Tech Stack
 
-1. vanilla HTML
+1. Vanilla HTML
 2. CSS
 3. JavaScript
 
