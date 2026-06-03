@@ -18,7 +18,7 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 2. **Create a Habit** - Enter a habit name (e.g., "Exercise", "Read", "Meditate") and click "Add Habit"
 3. **Log Daily** - Click "✓ Log Today" for each habit you complete
 4. **Watch It Grow** - Your streak increases each day you log the habit
-5. **Manage** - Edit habit names or delete habits you're done with
+5. **Manage** - Edit the habit names or delete habits you're done 
 
 ## Features in Detail
 
