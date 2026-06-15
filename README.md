@@ -6,17 +6,17 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 
 ✨ **Multiple Habits** - Track as many habits as you want, each with its own streak  
 🔥 **Streak Counter** - Visual streak display for each habit added
-📊 **Progress Tracking** - See total logged days and independent streaks  
+📊 **Progress Tracking** - See total logged days and independent streaks
 📱 **Responsive** - Works perfectly on mobile, tablet, and desktop  
 ✏️ **Edit & Delete** - Rename habits or remove ones you no longer want  
-🏅 **Motivational Quotes** - Random quotes to keep you inspired  
+🏅 **Motivational Quotes** - Random quotes to keep you inspired
 🔔 **Toast Notifications** - Get feedback on every action  
 
 ## How to Use
 
 1. **Open** the app by loading `index.html` in your web browser
 2. **Create a Habit** - Enter a habit name (e.g., "Exercise", "Read", "Meditate") and click "Add Habit"
-3. **Log Daily** - Click "✓ Log Today" for each habit you complete
+3. **Log Daily** - Click "✓ Log Today" for each habit you complete on that day
 4. **Watch It Grow** - Your streak increases each day you log the habit
 5. **Manage** - Edit the habit names or delete habits you're done 
 
@@ -51,7 +51,7 @@ A beautiful, modern habit streak tracker that lets you track multiple daily habi
 
 ## Data Storage
 
-All your data is stored locally in your browser using localStorage. 
+All your data is stored locally in your browser using local Storage. 
 
 ### Data & Privacy
 - **Your Data** - Stored only on your device, nowhere else
