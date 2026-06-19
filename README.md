@@ -1,6 +1,6 @@
 # 🎯 Tiny Multi-Habit Tracker
 
-A beautiful, modern habit streak tracker that lets you track multiple daily habits and watch your streaks grow independently.
+A beautiful, modern habit streak tracker that lets you track your multiple daily habits and watch your streaks grow independently.
 
 ## Features
 
