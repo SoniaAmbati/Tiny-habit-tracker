@@ -20,7 +20,7 @@ A beautiful, modern habit streak tracker that lets you track your multiple daily
 4. **Watch It Grow** - Your streak increases each day you log the habit
 5. **Manage** - Edit the habit names or delete habits you're done 
 
-## Features in Detail
+## Overview 
 
 ### Create Multiple Habits
 - Add unlimited habits with custom names
