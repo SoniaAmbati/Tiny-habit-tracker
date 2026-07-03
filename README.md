@@ -15,7 +15,7 @@ A beautiful, modern habit streak tracker that lets you track your multiple daily
 ## How to Use
 
 1. **Open** the app by loading `index.html` in your web browser
-2. **Create a Habit** - Enter a habit name (e.g., "Exercise", "Read", "Meditate") and click "Add Habit"
+2. **Create a Habit** - Enter a habit name and click "Add Habit"
 3. **Log Daily** - Click "✓ Log Today" for each habit you complete on that day
 4. **Watch It Grow** - Your streak increases each day you log the habit
 5. **Manage** - Edit the habit names or delete habits you're done 
