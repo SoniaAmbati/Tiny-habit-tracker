@@ -66,7 +66,7 @@ All your data is stored locally in your browser using local Storage.
 
 ---
 
-Made with ❤️ for habit builders. 
+Made with ❤️ for habit builders
 
 ```
 Remember: small consistent actions lead to big results! 🚀
